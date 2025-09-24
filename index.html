@@ -3,20 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurivelle</title>
+<title>Aurivelle Luxury</title>
 
 <!-- Premium Font -->
 <link href="https://fonts.googleapis.com/css2?family=Mialgor:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Body & Font */
+  /* Body */
   body {
     font-family: 'Mialgor', serif;
     background: linear-gradient(135deg, #f9f8f7 0%, #e8e6e3 100%);
     color: #111;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
   }
 
   /* Header */
@@ -31,7 +30,6 @@
     text-transform: uppercase;
     position: relative;
   }
-
   header::after {
     content: '';
     display: block;
@@ -40,6 +38,28 @@
     background: #b4975a;
     margin: 15px auto 0 auto;
     border-radius: 2px;
+  }
+
+  /* Filters */
+  .filters {
+    text-align: center;
+    padding: 30px 10px 0 10px;
+  }
+  .filters button {
+    margin: 0 8px 15px 8px;
+    padding: 10px 20px;
+    border: 2px solid #b4975a;
+    background: transparent;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Mialgor', serif;
+    transition: background 0.3s, color 0.3s;
+  }
+  .filters button:hover {
+    background: #b4975a;
+    color: #000;
   }
 
   /* Container */
@@ -61,16 +81,14 @@
     box-shadow: 0 25px 60px rgba(0,0,0,0.1);
     text-align: center;
     overflow: hidden;
-    transform: translateY(0);
-    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    transform: translateY(50px);
     opacity: 0;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease;
   }
-
   .card.show {
     opacity: 1;
     transform: translateY(0);
   }
-
   .card:hover {
     transform: translateY(-20px) rotateZ(-1deg);
     box-shadow: 0 35px 80px rgba(0,0,0,0.25);
@@ -83,13 +101,12 @@
     margin-bottom: 18px;
     transition: transform 0.5s ease, filter 0.5s ease;
   }
-
   .card:hover img {
     transform: scale(1.07);
     filter: brightness(1.15);
   }
 
-  /* Overlay */
+  /* Overlay Button */
   .overlay {
     position: absolute;
     top: 0; left: 0;
@@ -102,11 +119,7 @@
     transition: opacity 0.5s ease;
     border-radius: 20px;
   }
-
-  .card:hover .overlay {
-    opacity: 1;
-  }
-
+  .card:hover .overlay { opacity: 1; }
   .overlay button {
     padding: 12px 24px;
     border: 2px solid #b4975a;
@@ -115,18 +128,16 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: 12px;
-    transition: background 0.3s, color 0.3s, transform 0.3s;
-    font-family: 'Mialgor', serif;
     font-size: 1rem;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
   }
-
   .overlay button:hover {
     background: #b4975a;
     color: #000;
     transform: scale(1.05);
   }
 
-  /* Product Name */
+  /* Product Name & Price */
   .card h3 a {
     color: #111;
     text-decoration: none;
@@ -134,129 +145,134 @@
     font-size: 1.2rem;
     transition: color 0.3s, transform 0.3s;
   }
+  .card h3 a:hover { color: #b4975a; transform: scale(1.05); }
+  .card p.price { font-weight: bold; color: #b4975a; margin: 5px 0 0 0; }
 
-  .card h3 a:hover {
-    color: #b4975a;
-    transform: scale(1.05);
-  }
-
-  /* Upload Input (Hidden for visitors) */
-  .admin-only {
-    display: none;
-  }
+  /* Admin upload (hidden from visitors) */
+  .admin-only { display: none; }
 
   /* Footer */
-  footer {
-    text-align: center;
-    padding: 50px 10px;
-    font-size: 0.95rem;
-    color: #555;
-    letter-spacing: 1px;
-  }
-
-  /* Fade-in Animation */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  footer { text-align:center; padding:50px 10px; font-size:0.95rem; color:#555; letter-spacing:1px; }
 
   /* Responsive */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
+  @media (max-width: 768px) { .container { flex-direction: column; align-items:center; } }
 </style>
 </head>
 <body>
 
 <header>Aurivelle</header>
 
+<!-- Filters -->
+<div class="filters">
+  <button onclick="filterProducts('all')">All</button>
+  <button onclick="filterProducts('watch')">Watches</button>
+  <button onclick="filterProducts('bag')">Bags</button>
+  <button onclick="filterProducts('jewelry')">Jewelry</button>
+  <button onclick="sortProducts('asc')">Price Low → High</button>
+  <button onclick="sortProducts('desc')">Price High → Low</button>
+</div>
+
+<!-- Product Container -->
 <div class="container">
-  <!-- Product Card 1 -->
-  <div class="card fade-in">
-    <a href="https://amzn.to/4ndAQwc" target="_blank">
+
+  <!-- Product 1 -->
+  <div class="card fade-in" data-category="watch" data-price="499">
+    <a href="https://amzn.to/4mqRIhL" target="_blank">
       <img id="product1-image" src="Product1.jpg" alt="Samsung S24 Ultra">
       <div class="overlay"><button>Shop Now</button></div>
     </a>
-    <h3>
-      <a href="https://amzn.to/4ndAQwc" target="_blank">Samsung S24 Ultra</a>
-    </h3>
-    <input type="file" class="upload-input admin-only" id="product1-upload" accept="image/*">
+    <h3><a href="https://amzn.to/4mqRIhL" target="_blank">Samsung S24 Ultra</a></h3>
+    <p class="price">$499</p>
+    <input type="file" class="admin-only" id="product1-upload" accept="image/*">
   </div>
 
-  <!-- Product Card 2 -->
-  <div class="card fade-in">
-    <a href="https://amzn.to/3Vyqued" target="_blank">
-      <img id="product2-image" src="placeholder.jpg" alt="iphone 15">
+  <!-- Product 2 -->
+  <div class="card fade-in" data-category="bag" data-price="1200">
+    <a href="YOUR_AFFILIATE_LINK_2" target="_blank">
+      <img id="product2-image" src="placeholder.jpg" alt="Luxury Bag 1">
       <div class="overlay"><button>Shop Now</button></div>
     </a>
-    <h3>
-      <a href="https://amzn.to/3Vyqued" target="_blank">iPhone 15</a>
-    </h3>
-    <input type="file" class="upload-input admin-only" id="product2-upload" accept="image/*">
+    <h3><a href="YOUR_AFFILIATE_LINK_2" target="_blank">Luxury Bag 1</a></h3>
+    <p class="price">$1,200</p>
+    <input type="file" class="admin-only" id="product2-upload" accept="image/*">
   </div>
 
-  <!-- Product Card 3 -->
-  <div class="card fade-in">
+  <!-- Product 3 -->
+  <div class="card fade-in" data-category="jewelry" data-price="799">
     <a href="YOUR_AFFILIATE_LINK_3" target="_blank">
-      <img id="product3-image" src="placeholder.jpg" alt="Product 3">
+      <img id="product3-image" src="placeholder.jpg" alt="Luxury Jewelry 1">
       <div class="overlay"><button>Shop Now</button></div>
     </a>
-    <h3>
-      <a href="YOUR_AFFILIATE_LINK_3" target="_blank">Product 3</a>
-    </h3>
-    <input type="file" class="upload-input admin-only" id="product3-upload" accept="image/*">
+    <h3><a href="YOUR_AFFILIATE_LINK_3" target="_blank">Luxury Jewelry 1</a></h3>
+    <p class="price">$799</p>
+    <input type="file" class="admin-only" id="product3-upload" accept="image/*">
   </div>
+
 </div>
 
 <footer>&copy; 2025 Aurivelle</footer>
 
 <script>
-  // Admin-only image upload via GitHub
-  function setupImageUpload(inputId, imgId) {
+  // -------------------------
+  // Image Upload for Admin
+  // -------------------------
+  function setupImageUpload(inputId, imgId){
     const input = document.getElementById(inputId);
     const img = document.getElementById(imgId);
-
-    input.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (file) {
+    input.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if(file){
         const reader = new FileReader();
-        reader.onload = (e) => {
-          img.src = e.target.result; // Display uploaded image
-        };
+        reader.onload = e => { img.src = e.target.result; }
         reader.readAsDataURL(file);
       }
     });
   }
 
-  setupImageUpload('product1-upload', 'product1-image');
-  setupImageUpload('product2-upload', 'product2-image');
-  setupImageUpload('product3-upload', 'product3-image');
+  setupImageUpload('product1-upload','product1-image');
+  setupImageUpload('product2-upload','product2-image');
+  setupImageUpload('product3-upload','product3-image');
 
-  // Fade-in animation on scroll
-  const fadeElements = document.querySelectorAll('.fade-in');
-  function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-    fadeElements.forEach(el => {
-      const elTop = el.getBoundingClientRect().top;
-      if(elTop < triggerBottom) {
-        el.classList.add('show');
-      }
+  // -------------------------
+  // Filter Products
+  // -------------------------
+  function filterProducts(category){
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card=>{
+      if(category==='all' || card.dataset.category===category){
+        card.style.display='block';
+      } else { card.style.display='none'; }
     });
   }
-  window.addEventListener('scroll', checkFade);
-  window.addEventListener('load', checkFade);
+
+  // -------------------------
+  // Sort Products by Price
+  // -------------------------
+  function sortProducts(order){
+    const container = document.querySelector('.container');
+    const cards = Array.from(container.children);
+    cards.sort((a,b)=>{
+      let priceA=parseFloat(a.dataset.price);
+      let priceB=parseFloat(b.dataset.price);
+      return order==='asc'? priceA-priceB : priceB-priceA;
+    });
+    cards.forEach(card=>container.appendChild(card));
+  }
+
+  // -------------------------
+  // Fade-in Animation
+  // -------------------------
+  const fadeElements = document.querySelectorAll('.fade-in');
+  function checkFade(){
+    const triggerBottom = window.innerHeight * 0.85;
+    fadeElements.forEach(el=>{
+      const elTop = el.getBoundingClientRect().top;
+      if(elTop < triggerBottom){ el.classList.add('show'); }
+    });
+  }
+  window.addEventListener('scroll',checkFade);
+  window.addEventListener('load',checkFade);
 </script>
 
 </body>
 </html>
-
-
