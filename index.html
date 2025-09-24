@@ -12,21 +12,34 @@
   /* Body & Font */
   body {
     font-family: 'Mialgor', serif;
-    background-color: #f9f8f7;
+    background: linear-gradient(135deg, #f9f8f7 0%, #e8e6e3 100%);
     color: #111;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
 
   /* Header */
   header {
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px;
     background-color: #000;
     color: #fff;
-    font-size: 2.5rem;
-    letter-spacing: 3px;
+    font-size: 3rem;
+    letter-spacing: 4px;
     font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #b4975a;
+    margin: 15px auto 0 auto;
+    border-radius: 2px;
   }
 
   /* Container */
@@ -35,38 +48,45 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 60px 20px;
-    gap: 40px;
+    gap: 50px;
   }
 
   /* Product Card */
   .card {
     position: relative;
     background-color: #fff;
-    width: 260px;
+    width: 280px;
     padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border-radius: 25px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.1);
     text-align: center;
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform: translateY(0);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    opacity: 0;
+  }
+
+  .card.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .card:hover {
-    transform: translateY(-15px) rotateZ(-1deg);
-    box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+    transform: translateY(-20px) rotateZ(-1deg);
+    box-shadow: 0 35px 80px rgba(0,0,0,0.25);
   }
 
   /* Product Image */
   .card img {
     width: 100%;
-    border-radius: 15px;
+    border-radius: 20px;
     margin-bottom: 18px;
-    transition: transform 0.4s ease, filter 0.4s ease;
+    transition: transform 0.5s ease, filter 0.5s ease;
   }
 
   .card:hover img {
-    transform: scale(1.05);
-    filter: brightness(1.1);
+    transform: scale(1.07);
+    filter: brightness(1.15);
   }
 
   /* Overlay */
@@ -74,13 +94,13 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.25);
     opacity: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.4s ease;
-    border-radius: 15px;
+    transition: opacity 0.5s ease;
+    border-radius: 20px;
   }
 
   .card:hover .overlay {
@@ -88,35 +108,39 @@
   }
 
   .overlay button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: 2px solid #b4975a;
     background: transparent;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 10px;
-    transition: background 0.3s, color 0.3s;
+    border-radius: 12px;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+    font-family: 'Mialgor', serif;
+    font-size: 1rem;
   }
 
   .overlay button:hover {
     background: #b4975a;
     color: #000;
+    transform: scale(1.05);
   }
 
   /* Product Name */
   .card h3 a {
     color: #111;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1.15rem;
-    transition: color 0.3s;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: color 0.3s, transform 0.3s;
   }
 
   .card h3 a:hover {
-    color: #b4975a; /* luxury gold hover */
+    color: #b4975a;
+    transform: scale(1.05);
   }
 
-  /* Upload Input (Hidden from visitors) */
+  /* Upload Input (Hidden for visitors) */
   .admin-only {
     display: none;
   }
@@ -124,9 +148,22 @@
   /* Footer */
   footer {
     text-align: center;
-    padding: 40px 10px;
-    font-size: 0.9rem;
+    padding: 50px 10px;
+    font-size: 0.95rem;
     color: #555;
+    letter-spacing: 1px;
+  }
+
+  /* Fade-in Animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Responsive */
@@ -143,9 +180,8 @@
 <header>Aurivelle</header>
 
 <div class="container">
-
   <!-- Product Card 1 -->
-  <div class="card">
+  <div class="card fade-in">
     <a href="YOUR_AFFILIATE_LINK_1" target="_blank">
       <img id="product1-image" src="placeholder.jpg" alt="Product 1">
       <div class="overlay"><button>Shop Now</button></div>
@@ -157,7 +193,7 @@
   </div>
 
   <!-- Product Card 2 -->
-  <div class="card">
+  <div class="card fade-in">
     <a href="YOUR_AFFILIATE_LINK_2" target="_blank">
       <img id="product2-image" src="placeholder.jpg" alt="Product 2">
       <div class="overlay"><button>Shop Now</button></div>
@@ -169,7 +205,7 @@
   </div>
 
   <!-- Product Card 3 -->
-  <div class="card">
+  <div class="card fade-in">
     <a href="YOUR_AFFILIATE_LINK_3" target="_blank">
       <img id="product3-image" src="placeholder.jpg" alt="Product 3">
       <div class="overlay"><button>Shop Now</button></div>
@@ -179,7 +215,6 @@
     </h3>
     <input type="file" class="upload-input admin-only" id="product3-upload" accept="image/*">
   </div>
-
 </div>
 
 <footer>&copy; 2025 Aurivelle</footer>
@@ -205,6 +240,20 @@
   setupImageUpload('product1-upload', 'product1-image');
   setupImageUpload('product2-upload', 'product2-image');
   setupImageUpload('product3-upload', 'product3-image');
+
+  // Fade-in animation on scroll
+  const fadeElements = document.querySelectorAll('.fade-in');
+  function checkFade() {
+    const triggerBottom = window.innerHeight * 0.85;
+    fadeElements.forEach(el => {
+      const elTop = el.getBoundingClientRect().top;
+      if(elTop < triggerBottom) {
+        el.classList.add('show');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkFade);
+  window.addEventListener('load', checkFade);
 </script>
 
 </body>
